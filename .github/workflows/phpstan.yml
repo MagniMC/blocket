@@ -17,6 +17,4 @@ jobs:
         with:
           # Arguments to add to PHPStan
           arguments: 'src/ --level=7'
-autoload:
-- name: Install dependencies
-  run: composer install --prefer-dist --no-progress --no-suggest
+
