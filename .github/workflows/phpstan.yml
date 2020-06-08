@@ -1,20 +1,20 @@
+name: PHPStan
 
-  
-name: phpstan
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+on: [push, pull_request]
+
 jobs:
-  build:
+  phpstan:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Install dependencies
-        run: composer install --prefer-dist --no-progress --no-suggest
-      - name: PHPStan
-        uses: chindit/actions-phpstan@master
         with:
-          # Arguments to add to PHPStan
-          arguments: 'src/ --level=7'
+          ref: ${{ github.ref }}
+      - name: Create Vendor Directory
+        run: |
+          echo Making directory...
+          mkdir vendor
+          echo Directory made.
+      - name: Run PHPStan
+        uses: nxtlvlsoftware/pmmp-phpstan-action@3
+        with:
+          phpstan-config: phpstan.neon.dist
